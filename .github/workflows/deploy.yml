@@ -29,6 +29,7 @@ jobs:
     - name: Verify Pushed Image
       run: docker pull jiteshrajoriya/week-18-class:latest  
 
+
     - name: Deploy to EC2
       uses: appleboy/ssh-action@master
       with:
