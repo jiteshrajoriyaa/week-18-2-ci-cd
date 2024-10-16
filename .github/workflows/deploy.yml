@@ -28,3 +28,15 @@ jobs:
 
     - name: Verify Pushed Image
       run: docker pull jiteshrajoriya/week-18-class:latest  
+
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          sudo docker pull jiteshrajoriya/week-18-class:latest
+          sudo docker stop week-18-class || true
+          sudo docker rm week-18-class || true
+          sudo docker run -d --name week-18-class -p 3005:3000 jiteshrajoriya/week-18-class:latest
